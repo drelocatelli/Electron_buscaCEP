@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/css/winstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <title>Busca CEP</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Resultado</h1>
+        <br><br>
+        <result style="font-size:24px;"></result>
+    </div>
+   
+    
+</body>
+</html>
+
+<script>
+    const electron = require('electron')
+    let resultOut = document.querySelector('result')
+
+    let currentUrl = new URL(window.location.href);
+    let cepIn = currentUrl.searchParams.get('cep')
+
+    resultOut.innerHTML = `Buscado por: ${cepIn}<br><br>`
+
+    let webservice = "https://viacep.com.br/ws/"+cepIn+"/json"
+
+    axios.get(webservice)
+    .then(response =>{
+        console.log(response)
+        resultOut.innerHTML += `
+        <li>Logradouro: ${response.data.logradouro}</li>
+        <li>Bairro: ${response.data.bairro}</li>
+        <li>Localidade: ${response.data.localidade}</li>
+        <li>UF: ${response.data.uf}</li>
+        `
+    })
+</script>
+
+<style>
+    li{list-style: none;}
+    *{user-select: none;}
+    .container{
+        text-align: center;
+        margin:15px auto;
+    }
+</style>
