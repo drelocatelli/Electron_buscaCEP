@@ -2,9 +2,9 @@ const { app, BrowserWindow } = require('electron')
 const {ipcMain, ipcRenderer} = require('electron')
 
 // electron-reload
-// require('electron-reload')(__dirname, {
-//     electron: require(`${__dirname}/node_modules/electron`)
-// })
+require('electron-reload')(__dirname, {
+    electron: require(`${__dirname}/node_modules/electron`)
+})
 
 //--------------------------
 
@@ -29,11 +29,12 @@ function changeWindow (path, dimensions, attr) {
     win.loadURL(`file://${__dirname}/${path}`)
 }
 
+
 // recebe cep enviado
 let cep;
 ipcMain.on('form-values', (event, arg) =>{
     cep = arg
-    changeWindow(`result.html?cep=${cep}`, {width:800, height:450})
+    changeWindow(`result.html?cep=${cep}`, {width:800, height:600})
 })
 
 app.whenReady().then(() => {

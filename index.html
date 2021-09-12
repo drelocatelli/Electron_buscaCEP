@@ -13,7 +13,7 @@
         <h1>Busca CEP</h1>
         <br>
         <form method="post">
-            <input type="number" name="cep" placeholder="CEP" autofocus>
+            <input type="number" name="cep" placeholder="CEP" required autofocus>
             <br>
             <button type="submit" class="btn btn-primary">buscar</button>
         </form>
@@ -38,6 +38,7 @@
         // envia valores pro app.js
         ipcRenderer.send('form-values', cepIn.value)
 
+        window.close()
     }) 
 </script>
 
